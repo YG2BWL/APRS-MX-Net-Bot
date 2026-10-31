@@ -11,6 +11,5 @@
     "ejs": "^3.1.10",
     "better-sqlite3": "^11.1.2",
     "canvas": "^2.11.2",
-    "aprs-parser": "^0.2.1"
   }
 }
