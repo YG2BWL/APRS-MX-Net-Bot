@@ -1,0 +1,16 @@
+{
+  "name": "aprs-net-bot",
+  "version": "1.0.0",
+  "description": "APRS MX Net Bot & eQSL Generator",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "ejs": "^3.1.10",
+    "better-sqlite3": "^11.1.2",
+    "canvas": "^2.11.2",
+    "aprs-parser": "^0.2.1"
+  }
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>APRS MX Net - Check-in Log & eQSL</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background: #0f172a; color: #f8fafc; padding: 2rem; }
+    h1 { color: #38bdf8; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; background: #1e293b; }
+    th, td { padding: 12px; text-align: left; border-bottom: 1px solid #334155; }
+    th { background: #0284c7; }
+    a.btn { background: #22c55e; color: white; padding: 6px 12px; text-decoration: none; border-radius: 4px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>📡 APRS MX Net Check-in Dashboard</h1>
+  <p>Kirim pesan APRS ke <strong>YH2BC-10</strong> dengan format: <code>CNET [Pesan/Nama/Keterangan]</code></p>
+  
+  <table>
+    <thead>
+      <tr>
+        <th>Waktu (UTC)</th>
+        <th>Callsign</th>
+        <th>Keterangan</th>
+        <th>eQSL Download</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% checkins.forEach(item => { %>
+        <tr>
+          <td><%= new Date(item.timestamp).toISOString().replace('T', ' ').substring(0, 19) %></td>
+          <td><strong><%= item.callsign %></strong></td>
+          <td><%= item.comment %></td>
+          <td><a class="btn" href="/download-qsl/<%= item.qsl_code %>" target="_blank">Download eQSL</a></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</body>
+</html>
