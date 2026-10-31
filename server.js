@@ -8,8 +8,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Konfigurasi Bot APRS
-const BOT_CALLSIGN = process.env.BOT_CALLSIGN || "YH2BC-10";
-const APRS_PASSCODE = process.env.APRS_PASSCODE || "-1"; // Ganti dengan passcode valid
+const BOT_CALLSIGN = process.env.BOT_CALLSIGN || "YG2BWL-13";
+const APRS_PASSCODE = process.env.APRS_PASSCODE || "20395"; // Ganti dengan passcode valid
 const APRS_SERVER = "rotate.aprs2.net";
 const APRS_PORT = 14580;
 
