@@ -35,23 +35,24 @@ function startAPRSClient() {
     console.log('[APRS RAW]', rawMsg);
 
     // Format APRS Message: SENDER>DEST,PATH::TARGET   :TEXT{ID
-    if (rawMsg.includes(`::${BOT_CALLSIGN.padEnd(9, ' ')}:`)) {
-      const match = rawMsg.match(/^([A-Z0-9\-]+)>.*::[A-Z0-9\- ]{9}:(.*)$/);
-      if (match) {
-        const sender = match[1].trim();
-        const body = match[2].trim();
+   // Cek apakah pesan ditujukan untuk bot
+  if (rawMsg.includes(`::${BOT_CALLSIGN.padEnd(9, ' ')}`) || rawMsg.includes(`::${BOT_CALLSIGN}:`)) {
+  const senderMatch = rawMsg.match(/^([A-Z0-9\-]+)>/);
+  const textMatch = rawMsg.match(/::[A-Z0-9\-]+\s*:(.*?)(?:\{[A-Z0-9]+\})?$/);
+  
+  if (senderMatch && textMatch) {
+    const sender = senderMatch[1].trim();
+    const body = textMatch[1].trim();
 
-        // Format check-in: CNET <Pesan/Nama/Lokasi>
-        if (body.toUpperCase().startsWith("CNET")) {
-          const comment = body.substring(4).trim() || "Check-in Net APRS";
-          const record = saveCheckin(sender, comment);
+    if (body.toUpperCase().startsWith("CNET")) {
+      const comment = body.substring(4).trim() || "Check-in Net APRS";
+      const record = saveCheckin(sender, comment);
 
-          // Balas via APRS Message
-          const replyText = `[BOT] TKS CHECKIN! Download eQSL anda dengan kode: ${record.qsl_code}`;
-          sendAPRSMessage(client, sender, replyText);
-        }
-      }
+      const replyText = `[BOT] TKS CHECKIN! Download eQSL: kode ${record.qsl_code}`;
+      sendAPRSMessage(client, sender, replyText);
     }
+  }
+}
   });
 
   client.on('close', () => {
